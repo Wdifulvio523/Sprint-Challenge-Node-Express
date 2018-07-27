@@ -1,6 +1,7 @@
 const express = require("express");
 const helmet = require('helmet');
 const morgan = require('morgan');
+const cors = require('cors');
 const actionRoute = require('./data/routes/actionRoute');
 const projectRoute = require('./data/routes/projectRoute');
 
@@ -9,6 +10,7 @@ const server = express();
 server.use(express.json());
 server.use(helmet());
 server.use(morgan('dev'));
+server.use(cors());
 
 
 server.use('/actions', actionRoute);

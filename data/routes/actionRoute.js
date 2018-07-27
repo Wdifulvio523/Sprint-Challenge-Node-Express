@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 });
 
 
-//Get action by id
+// Get action by id
 router.get("/:id", (req, res) => {
   actionModel
     .get(req.params.id)
@@ -30,7 +30,7 @@ router.get("/:id", (req, res) => {
 });
 
 
-// Insert action
+// Post action
 router.post('/', (req, res) => {
     const { project_id, description, notes } = req.body;
     if (!project_id || !description || project_id != 1 || description.length > 128) { //able to hit this
@@ -49,7 +49,7 @@ router.post('/', (req, res) => {
         })
 });
 
-//Update action
+// Update action
 router.put('/:id', (req, res) => {
     const {id} = req.params;
     const {project_id, description, notes  } = req.body;
@@ -60,10 +60,6 @@ router.put('/:id', (req, res) => {
     actionModel
     .update(id, {project_id, description, notes })
     .then(response => {
-        // if (response == 0) {
-        //     res.status(404).json({message: "The action with the specified ID does not exist."})
-        //     return;
-        // }
         res.status(200).json({project_id, description, notes })
     })
     .catch(error => { //able to hit this
@@ -73,7 +69,7 @@ router.put('/:id', (req, res) => {
 });
 
 
-//Delete action
+// Delete action
 router.delete('/:id', (req, res) => {
     const {id} = req.params;
     actionModel

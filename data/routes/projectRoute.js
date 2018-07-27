@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
   });
 
 
-//Get projects by id
+// Get projects by id
 router.get("/:id", (req, res) => {
     projectModel
       .get(req.params.id)
@@ -30,7 +30,7 @@ router.get("/:id", (req, res) => {
       });
   });
 
-// Insert project
+// Post project
 router.post('/', (req, res) => {
     const { name, description } = req.body;
     if (!name || !description || name.length > 128) { //able to hit this
@@ -50,7 +50,7 @@ router.post('/', (req, res) => {
 });
 
 
-//Update project
+// Update project
 router.put('/:id', (req, res) => {
     const {id} = req.params;
     const {name, description  } = req.body;
@@ -69,7 +69,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-//Delete project
+// Delete project
 router.delete('/:id', (req, res) => {
     const {id} = req.params;
     projectModel
@@ -91,7 +91,7 @@ router.delete('/:id', (req, res) => {
 });
 
 
-// get all actions for project
+// Get all actions for project
 
 router.get('/:id/actions', (req, res) => {
     projectModel
