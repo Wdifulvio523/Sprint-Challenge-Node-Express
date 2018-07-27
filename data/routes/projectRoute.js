@@ -91,5 +91,27 @@ router.delete('/:id', (req, res) => {
 });
 
 
+// get all actions for project
+
+router.get('/:id/actions', (req, res) => {
+    projectModel
+    .getProjectActions(req.params.id)
+    .then(actions => {
+        if (actions.length === 0) { //able to hit this
+            res
+            .status(404)
+            .json({message: "There are no actions for this project"})
+        }
+        res
+        .status(200)
+        .json(actions);
+    })
+    .catch(err => {
+        res
+        .status(500)
+        .json({error: "The project's actions coult not be retrieved. Sorry!"})
+    })
+})
+
 
 module.exports = router;
