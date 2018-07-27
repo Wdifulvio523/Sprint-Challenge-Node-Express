@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const actionModel = require("../helpers/actionModel");
 
-// All actions
+// GET all actions
 router.get("/", (req, res) => {
   actionModel
     .get()
@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 });
 
 
-//actions by id
+//Get action by id
 router.get("/:id", (req, res) => {
   actionModel
     .get(req.params.id)
@@ -30,11 +30,11 @@ router.get("/:id", (req, res) => {
 });
 
 
-// insert action
+// Insert action
 router.post('/', (req, res) => {
     const { project_id, description, notes } = req.body;
-    if (!project_id || !description) { //able to hit this
-        res.status(400).json({errorMessage: "Please provide ID and description for the user."})
+    if (!project_id || !description || project_id != 1 || description.length > 128) { //able to hit this
+        res.status(400).json({errorMessage: "Please provide existing project ID and a description (less than 128 characters) for the action."})
         return;
     }
     actionModel
@@ -54,7 +54,7 @@ router.put('/:id', (req, res) => {
     const {id} = req.params;
     const {project_id, description, notes  } = req.body;
     if (!project_id || !description) { //able to hit this
-        res.status(400).json({errorMessage: "Please provide ID and description for the post."})
+        res.status(400).json({errorMessage: "Please provide ID and description for the action."})
         return;
     } 
     actionModel
@@ -79,7 +79,7 @@ router.delete('/:id', (req, res) => {
     actionModel
     .remove(id)
     .then(response => {
-        if (!response) {
+        if (!response) { //able to hit this
             res
             .status(404)
             .json({message: "The action with the specified ID does not exist."})
